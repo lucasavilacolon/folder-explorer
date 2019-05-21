@@ -1,0 +1,33 @@
+version: '2'
+
+services:
+    web:
+        image: nginx:latest
+        ports:
+            - "80"
+        volumes:
+            - /etc/localtime:/etc/localtime:ro
+            - /etc/timezone:/etc/timezone:ro
+            - /webapps/redbee/folder-explorer:/webapps/redbee/folder-explorer
+            - /var/run/docker.sock:/var/run/docker.sock
+            - /webapps/redbee/folder-explorer/code:/code
+            - /webapps/redbee/folder-explorer/site.conf:/etc/nginx/conf.d/site.conf
+        links:
+            - php
+        networks:
+            - web
+        labels:
+            - "traefik.backend=automation-report"
+            - "traefik.frontend.rule=Host:jenkins.colonseguros.com.ar;PathPrefix:/automation-report;PathPrefixStrip:/automation-report;"
+            - "traefik.frontend.passHostHeader=true"
+    php:
+        image: php:7-fpm
+        volumes:
+            - /webapps/redbee/folder-explorer/code:/code
+        networks:
+            - web
+networks:
+  web:
+    external:
+      name: traefik_webgateway
+
