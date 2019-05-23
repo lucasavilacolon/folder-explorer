@@ -803,7 +803,7 @@ class DirectoryLister {
         if (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') {
             $protocol = 'https://';
         } else {
-            $protocol = 'http://';
+            $protocol = 'https://';
         }
 
         // Get the server hostname
