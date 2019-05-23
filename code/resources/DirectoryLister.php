@@ -828,7 +828,7 @@ class DirectoryLister {
         }
 
         // Build the application URL
-        $appUrl = $protocol . $host . $path;
+        $appUrl = $protocol . $host . $path . '/automation-report/' ;
 
         // Return the URL
         return $appUrl;
